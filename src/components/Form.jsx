@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 
 const defaultFormData = {
@@ -6,6 +7,8 @@ const defaultFormData = {
 }
 
 function Form() {
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
   const [formData, setFormData] = useState(defaultFormData)
   const { title, body } = formData
 
@@ -16,9 +19,18 @@ function Form() {
     }))
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
     setFormData(defaultFormData)
+    try {
+      await axios.post('https://jsonplaceholder.typicode.com/posts', formData)
+      setSuccess(true)
+      setError(false)
+    } catch (error) {
+      setSuccess(false)
+      setError(true)
+      console.log(error)
+    }
   }
 
   return (
@@ -36,8 +48,10 @@ function Form() {
       <br />
       <br />
 
-      <button type="submit">Upload</button>
+      <button type="submit">Post</button>
     </form>
+    {error && 'Oops! Cannot post the data. Please try again later.'}
+    {success && 'Your post is success to proceed!'}
     </>
   )
 }

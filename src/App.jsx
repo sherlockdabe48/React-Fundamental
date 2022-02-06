@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import Form from "./components/Form"
 
 export default function App() {
   const [posts, setPosts] = useState(null)
@@ -27,6 +28,7 @@ useEffect(() => {
   return <>
   {loading && 'Loading...'}
   {error && 'Oops! cannot load posts from the server..., please try again later.'}
+  <Form/>
 
   {posts && posts.map(post => {
     const { id, title, body } = post
