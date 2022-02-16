@@ -1,14 +1,13 @@
-import { QueryClient, QueryClientProvider } from "react-query";
-import Dashboard from "./pages/Dashboard";
+import { useState } from "react";
+import CalculationOverView from "./components/CalculationOverView";
+import Input from "./components/Input";
 
 export default function App() {
-  const queryClient = new QueryClient();
-
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <Dashboard />
-      </QueryClientProvider>
+      <h1>Multiplied By Two App</h1>
+      <Input />
+      <CalculationOverView />
     </>
   );
 }
