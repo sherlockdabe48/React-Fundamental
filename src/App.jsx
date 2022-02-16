@@ -1,43 +1,14 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import Form from "./components/Form"
+import { QueryClient, QueryClientProvider } from "react-query";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
-  const [posts, setPosts] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const queryClient = new QueryClient();
 
-useEffect(() => {
-  const fetchPosts = async () => {
-    setLoading(true)
-    
-    try {
-      const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-      setPosts(response.data)
-      setError(false)
-      setLoading(false)
-    } catch(error) {
-      setError(true)
-      setLoading(false)
-    }
-  }
-
-  fetchPosts()
-}, [])
-
-  return <>
-  {loading && 'Loading...'}
-  {error && 'Oops! cannot load posts from the server..., please try again later.'}
-  <Form/>
-
-  {posts && posts.map(post => {
-    const { id, title, body } = post
-    return <article key={id}>
-      id: {id}<br />
-      title: {title}<br />
-      body: {body}<br />
-      <br />
-    </article>
-  })}
-  </>
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <Dashboard />
+      </QueryClientProvider>
+    </>
+  );
 }
