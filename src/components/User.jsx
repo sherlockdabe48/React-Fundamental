@@ -2,7 +2,7 @@ import React from "react";
 import useUser from "../query-hooks/useUser";
 
 export default function User({ selectedUser }) {
-  const user = useUser(selectedUser || 1);
+  const user = useUser(selectedUser);
   return (
     <div>
       {user.isLoading && selectedUser && <p>Loading User...</p>}
@@ -10,7 +10,7 @@ export default function User({ selectedUser }) {
       {user.isSuccess && (
         <div>
           <p>{user.data.name}</p>
-          <p>{user.data.email}</p>
+          {/* <p>{user.data.email}</p> */}
         </div>
       )}
     </div>
